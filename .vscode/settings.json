@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "new": "cpp",
+        "iostream": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "complex": "cpp",
+        "future": "cpp",
+        "limits": "cpp",
+        "memory": "cpp",
+        "thread": "cpp",
+        "type_traits": "cpp",
+        "valarray": "cpp"
+    }
+}
