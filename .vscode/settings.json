@@ -10,6 +10,7 @@
         "memory": "cpp",
         "thread": "cpp",
         "type_traits": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "random": "cpp"
     }
 }
