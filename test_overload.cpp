@@ -15,6 +15,9 @@ class Complex
     friend Complex operator/(const Complex A,const Complex B);
     friend bool operator==(const Complex A,const Complex B);
     friend bool operator!=(const Complex A,const Complex B);
+    //重载输入输出运算符
+    friend istream &operator>>(istream &in,Complex &A);
+    friend ostream &operator<<(ostream &out,Complex &A);
     //成员函数重载
     Complex & operator+=(const Complex &A);
     Complex & operator-=(const Complex &A);
@@ -46,6 +49,16 @@ Complex operator/(const Complex A,const Complex B)
 {
     double tmp = pow(B.imag,2) + pow(B.real,2);
     return Complex((A.real*B.real + A.imag*B.imag)/tmp,(A.imag*B.real - A.real*B.imag)/tmp);
+}
+istream &operator>>(istream &in,Complex &A)
+{
+    in >> A.real >> A.imag;
+    return in;
+}
+ostream &operator<<(ostream &out,Complex &A)
+{
+    out << A.real << "+" << A.imag << "i";
+    return out;
 }
 bool operator==(const Complex A,const Complex B)
 {
@@ -85,6 +98,10 @@ Complex & Complex :: operator/=(const Complex &A)
 }
 int main()
 {
+    Complex cmp(0,0);
+    cin >> cmp;
+    cout << cmp << endl;
+
     Complex c1(25, 35);
     Complex c2(10, 20);
     Complex c3(1, 2);
@@ -96,20 +113,32 @@ int main()
     Complex c8 = c1 - c2;
     Complex c9 = c1 * c2;
     Complex c10 = c1 / c2;
+    /*
     cout<<"c7 = "<<c7.get_real()<<" + "<<c7.get_imag()<<"i"<<endl;
     cout<<"c8 = "<<c8.get_real()<<" + "<<c8.get_imag()<<"i"<<endl;
     cout<<"c9 = "<<c9.get_real()<<" + "<<c9.get_imag()<<"i"<<endl;
     cout<<"c10 = "<<c10.get_real()<<" + "<<c10.get_imag()<<"i"<<endl;
-   
+   */
+    cout << c7 << endl;
+    cout << c8 << endl;
+    cout << c9 << endl;
+    cout << c10 << endl;
+
     c3 += c1;
     c4 -= c2;
     c5 *= c2;
     c6 /= c2;
+    /*
     cout<<"c3 = "<<c3.get_real()<<" + "<<c3.get_imag()<<"i"<<endl;
     cout<<"c4 = "<<c4.get_real()<<" + "<<c4.get_imag()<<"i"<<endl;
     cout<<"c5 = "<<c5.get_real()<<" + "<<c5.get_imag()<<"i"<<endl;
     cout<<"c6 = "<<c6.get_real()<<" + "<<c6.get_imag()<<"i"<<endl;
-   
+   */
+    cout << c3 << endl;
+    cout << c4 << endl;
+    cout << c5 << endl;
+    cout << c6 << endl;
+
     if(c1 == c2){
         cout<<"c1 == c2"<<endl;
     }
