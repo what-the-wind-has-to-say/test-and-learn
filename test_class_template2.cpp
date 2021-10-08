@@ -33,7 +33,7 @@ MyArray<T> :: MyArray(int _size):size(_size)
     else
     {
         //分配内存
-        ptr = new T(size);
+        ptr = new T[size];
     }
 }
 template <typename T>
@@ -46,7 +46,7 @@ MyArray<T> :: MyArray(MyArray &copy)
         return;
     }
     //调用内存拷贝函数
-    ptr = new T(copy.size);
+    ptr = new T[copy.size];
     memccpy(ptr,copy.ptr,sizeof(T)*copy.size);
     size = copy.size;
 }
@@ -71,7 +71,7 @@ MyArray<T> & MyArray<T> :: operator=(MyArray &copy)
     {
         delete []ptr;
     }
-    ptr = new T(copy.size);
+    ptr = new T[copy.size];
     memcpy(ptr,copy.ptr,sizeof(T)*copy.size);
     size = copy.size;
     return *this;    
@@ -82,13 +82,13 @@ void MyArray<T> :: push_back(const T &e)
     if(!ptr)
     {
         //数组本来为空
-        ptr = new T(1);
+        ptr = new T[1];
         ptr[1] = e;
         return;
     }
     else
     {
-        T* tmpptr = new T(size + 1);
+        T* tmpptr = new T[size + 1];
         memcpy(tmpptr,ptr,sizeof(T)*size);
         ptr = tmpptr;
         ptr[size++] = e;
