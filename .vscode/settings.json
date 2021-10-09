@@ -11,6 +11,7 @@
         "thread": "cpp",
         "type_traits": "cpp",
         "valarray": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "ostream": "cpp"
     }
 }
