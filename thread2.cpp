@@ -14,27 +14,60 @@ class Req
         for(int i = 0;i < 10000;i++)
         {
             
-            m1.lock();
-            req.push_back(i);
-            cout << "write in " << i << endl;
-            m1.unlock();
+            //m1.lock();
+            unique_lock<mutex> mylock(m1,try_to_lock);
+            if(mylock.owns_lock())
+            {
+                //拿到了锁
+                req.push_back(i);
+                cout << "write in " << i << endl;
+            }
+            else
+            {
+                cout << "lock fail do other things" << endl;
+            }
+            //m1.unlock();
+            mutex *ptr = mylock.release();
+            m1.unlock();//解除关系后，需要手动unlock
         }
+    }
+    void read_out(int &command)
+    {
+        //lock_guard<mutex> mylock(m1);
+        //unique_lock<mutex> mylock(m1);
+
+        //m1.lock();
+        //unique_lock<mutex> mylock(m1,adopt_lock);//会检查是否上锁
+
+        unique_lock<mutex> mylock(m1,defer_lock);
+        mylock.lock();
+        //处理共享内存代码
+        chrono :: milliseconds dura(2000);
+        this_thread :: sleep_for(dura);//sleep 20s
+        command = req.empty();
+        if(!command)
+        {
+            cout << "read out " << req.front() << endl;
+            req.pop_front();
+        }
+        mylock.unlock();
+        //中途处理非共享内存代码
+        mylock.lock();
+        //返回处理共享代码
+        //unique_lock,会在析构时自动解锁
+        unique_lock<mutex> mylock2(move(mylock));//转移m1的所有权
     }
     void out_list()
     {
         for(int i = 0;i < 10000;i++)
         {
-            m1.lock(); 
-            if(!req.empty())
-            {        
-                auto command = req.front();
-                cout << "read out " << command << endl;
-                req.pop_front();
-                m1.unlock();
-                continue;
+            int command = 0;
+            read_out(command);
+            if(command)
+            {
+                cout << "list is empty" << endl;
+                i--;
             }
-            i--;
-            m1.unlock();
         }
     }
 };
