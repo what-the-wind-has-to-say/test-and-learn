@@ -18,11 +18,11 @@ void producer(int id)
 }
 int main()
 {
-    vector<thread>consumers(10);
+    vector<thread>consumers;
     vector<thread>producers(10);
     for(int i = 0;i < 10;i++)
     {
-        consumers[i] = thread(consumer);
+        consumers.push_back(thread(consumer));
         producers[i] = thread(producer,i + 1);
     }
     for(int i = 0;i < 10;i++)
